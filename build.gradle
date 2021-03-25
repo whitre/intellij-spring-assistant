@@ -61,7 +61,7 @@ clean.doFirst {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     type = 'IC'
-    version = '2020.3.2'
+    version = '203.7717.56'
 //  version= '2020.2'
     pluginName = 'intellij-spring-assistant'
     plugins = ['java', 'properties', 'yaml', 'maven', 'gradle']

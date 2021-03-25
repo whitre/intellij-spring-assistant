@@ -1,6 +1,8 @@
 package in.oneton.idea.spring.assistant.plugin.suggestion.service;
 
-import com.google.gson.GsonBuilder;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
@@ -18,23 +20,17 @@ import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.MetadataContai
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.MetadataNonPropertySuggestionNode;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.MetadataPropertySuggestionNode;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.MetadataSuggestionNode;
-import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.GsonPostProcessEnablingTypeFactory;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadata;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadataGroup;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadataHint;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadataProperty;
-import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadataValueProviderType;
-import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadataValueProviderTypeDeserializer;
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -70,10 +66,14 @@ public class SuggestionServiceImpl implements SuggestionService {
     private final Map<String, Trie<String, MetadataSuggestionNode>> moduleNameToRootSearchIndex;
     private Future<?> currentExecution;
     private volatile boolean indexingInProgress;
+    private final ObjectMapper objectMapper;
 
     SuggestionServiceImpl() {
         moduleNameToSeenContainerPathToContainerInfo = new THashMap<>();
         moduleNameToRootSearchIndex = new THashMap<>();
+        objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
     }
 
     private static String[] toSanitizedPathSegments(String element) {
@@ -400,13 +400,9 @@ public class SuggestionServiceImpl implements SuggestionService {
             final String metadataFilePath = metadataContainerInfo.getFileUrl();
 
             try (final var inputStream = metadataContainerInfo.getMetadataFile().getInputStream()) {
-                final var springConfigurationMetadata = new GsonBuilder()
-                        // register custom mapper adapters
-                        .registerTypeAdapter(SpringConfigurationMetadataValueProviderType.class,
-                                new SpringConfigurationMetadataValueProviderTypeDeserializer())
-                        .registerTypeAdapterFactory(new GsonPostProcessEnablingTypeFactory())
-                        .create()
-                        .fromJson(new BufferedReader(new InputStreamReader(inputStream)), SpringConfigurationMetadata.class);
+                final SpringConfigurationMetadata springConfigurationMetadata = objectMapper
+                        .readerFor(SpringConfigurationMetadata.class)
+                        .readValue(inputStream);
 
                 buildMetadataHierarchy(module, rootSearchIndex, metadataContainerInfo, springConfigurationMetadata);
 
