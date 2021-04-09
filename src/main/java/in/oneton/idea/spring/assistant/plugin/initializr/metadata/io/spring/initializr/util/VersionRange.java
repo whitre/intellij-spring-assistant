@@ -77,8 +77,9 @@ public class VersionRange {
       int higher = higherVersion.compareTo(version);
       if (higher < 0) {
         return false;
-      } else
-        return higherInclusive || higher != 0;
+      } else {
+          return higherInclusive || higher != 0;
+      }
     }
     return true;
   }
@@ -124,26 +125,34 @@ public class VersionRange {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    VersionRange other = (VersionRange) obj;
-    if (higherInclusive != other.higherInclusive)
-      return false;
-    if (higherVersion == null) {
-      if (other.higherVersion != null)
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null) {
         return false;
-    } else if (!higherVersion.equals(other.higherVersion))
-      return false;
-    if (lowerInclusive != other.lowerInclusive)
-      return false;
+    }
+    if (getClass() != obj.getClass()) {
+        return false;
+    }
+    VersionRange other = (VersionRange) obj;
+    if (higherInclusive != other.higherInclusive) {
+        return false;
+    }
+    if (higherVersion == null) {
+      if (other.higherVersion != null) {
+          return false;
+      }
+    } else if (!higherVersion.equals(other.higherVersion)) {
+        return false;
+    }
+    if (lowerInclusive != other.lowerInclusive) {
+        return false;
+    }
     if (lowerVersion == null) {
       return other.lowerVersion == null;
-    } else
-      return lowerVersion.equals(other.lowerVersion);
+    } else {
+        return lowerVersion.equals(other.lowerVersion);
+    }
   }
 
 }

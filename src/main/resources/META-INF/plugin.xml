@@ -1,9 +1,9 @@
 <idea-plugin url="https://github.com/eltonsandre/intellij-spring-assistant">
 
-    <id>in.1ton.idea.spring.assistant.plugin</id>
+    <id>in.1ton.whitre.spring.assistant.plugin</id>
     <name>Spring Assistant</name>
     <!-- Will be auto populated by plugin -->
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <vendor email="dev@1ton.in" url="https://github.com/eltonsandre">
         eltonsandre and Development Team @ 1Ton Technologies
     </vendor>
@@ -26,7 +26,7 @@
           ]]>]
     </change-notes>
 
-    <idea-version since-build="203"/>
+    <idea-version since-build="211"/>
 
     <depends>com.intellij.modules.java</depends>
     <depends>com.intellij.modules.lang</depends>
@@ -71,17 +71,8 @@
         <moduleBuilder
                 builderClass="in.oneton.idea.spring.assistant.plugin.initializr.InitializrModuleBuilder"
                 order="last"/>
-    </extensions>
 
-    <project-components>
-        <component>
-            <interface-class>
-                in.oneton.idea.spring.assistant.plugin.suggestion.component.Bootstrap
-            </interface-class>
-            <implementation-class>
-                in.oneton.idea.spring.assistant.plugin.suggestion.component.BootstrapImpl
-            </implementation-class>
-        </component>
-    </project-components>
+        <postStartupActivity implementation="in.oneton.idea.spring.assistant.plugin.suggestion.component.BootstrapImpl"/>
+    </extensions>
 
 </idea-plugin>

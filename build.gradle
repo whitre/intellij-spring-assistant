@@ -11,12 +11,12 @@ buildscript {
 plugins {
     id 'java'
     id 'idea'
-    id 'org.jetbrains.intellij' version '0.6.5'
+    id 'org.jetbrains.intellij' version '0.7.2'
 }
 
 
 group = 'in.oneton.idea.spring'
-version = '1.0.0'
+version = '1.1.0'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -60,10 +60,10 @@ clean.doFirst {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    type = 'IC'
-    version = '203.7717.56'
+//    type = 'IC'
+//    version = '211.6693.111'
 //  version= '2020.2'
-    pluginName = 'intellij-spring-assistant'
+    pluginName = 'whitre-spring-assistant'
     plugins = ['java', 'properties', 'yaml', 'maven', 'gradle']
 //  updateSinceUntilBuild false
 }

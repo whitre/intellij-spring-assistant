@@ -99,6 +99,7 @@ public class GenericClassMemberWrapper implements SuggestionNode, SuggestionDocu
         querySegmentPrefixes, querySegmentPrefixStartIndex, siblingsToExclude), null);
   }
 
+  @Override
   @NotNull
   public String getOriginalName() {
     return this.originalName;

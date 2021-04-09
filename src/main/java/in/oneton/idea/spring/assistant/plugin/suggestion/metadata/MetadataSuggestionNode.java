@@ -75,6 +75,7 @@ public abstract class MetadataSuggestionNode implements SuggestionNode {
 
   protected abstract String getName();
 
+  @Override
   @NotNull
   public abstract String getOriginalName();
 

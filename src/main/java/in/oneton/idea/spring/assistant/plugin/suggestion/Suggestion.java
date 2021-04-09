@@ -39,6 +39,7 @@ public class Suggestion implements Comparable<Suggestion> {
 
   private static final LookupElementRenderer<LookupElement> CUSTOM_SUGGESTION_RENDERER =
       new LookupElementRenderer<LookupElement>() {
+        @Override
         public void renderElement(LookupElement element, LookupElementPresentation presentation) {
           Suggestion suggestion = (Suggestion) element.getObject();
           if (suggestion.icon != null) {

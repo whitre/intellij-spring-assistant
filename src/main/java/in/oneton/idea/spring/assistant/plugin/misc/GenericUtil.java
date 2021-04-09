@@ -1,11 +1,11 @@
 package in.oneton.idea.spring.assistant.plugin.misc;
 
+import com.intellij.application.options.CodeStyle;
 import com.intellij.codeInsight.completion.InsertionContext;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
 import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import in.oneton.idea.spring.assistant.plugin.suggestion.SuggestionNode;
 import lombok.experimental.UtilityClass;
@@ -83,7 +83,7 @@ public class GenericUtil {
 
   @NotNull
   public static String getCodeStyleIntent(final InsertionContext insertionContext) {
-    final CodeStyleSettings currentSettings = CodeStyleSettingsManager.getSettings(insertionContext.getProject());
+    final CodeStyleSettings currentSettings = CodeStyle.getSettings(insertionContext.getProject());
     final CommonCodeStyleSettings.IndentOptions indentOptions =
             currentSettings.getIndentOptions(insertionContext.getFile().getFileType());
 

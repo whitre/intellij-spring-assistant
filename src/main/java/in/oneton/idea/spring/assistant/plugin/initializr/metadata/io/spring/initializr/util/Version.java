@@ -144,32 +144,42 @@ public final class Version implements Serializable, Comparable<Version> {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null) {
+        return false;
+    }
+    if (getClass() != obj.getClass()) {
+        return false;
+    }
     Version other = (Version) obj;
     if (major == null) {
-      if (other.major != null)
+      if (other.major != null) {
+          return false;
+      }
+    } else if (!major.equals(other.major)) {
         return false;
-    } else if (!major.equals(other.major))
-      return false;
+    }
     if (minor == null) {
-      if (other.minor != null)
+      if (other.minor != null) {
+          return false;
+      }
+    } else if (!minor.equals(other.minor)) {
         return false;
-    } else if (!minor.equals(other.minor))
-      return false;
+    }
     if (patch == null) {
-      if (other.patch != null)
+      if (other.patch != null) {
+          return false;
+      }
+    } else if (!patch.equals(other.patch)) {
         return false;
-    } else if (!patch.equals(other.patch))
-      return false;
+    }
     if (qualifier == null) {
       return other.qualifier == null;
-    } else
-      return qualifier.equals(other.qualifier);
+    } else {
+        return qualifier.equals(other.qualifier);
+    }
   }
 
 
@@ -215,22 +225,28 @@ public final class Version implements Serializable, Comparable<Version> {
 
     @Override
     public boolean equals(Object obj) {
-      if (this == obj)
-        return true;
-      if (obj == null)
-        return false;
-      if (getClass() != obj.getClass())
-        return false;
+      if (this == obj) {
+          return true;
+      }
+      if (obj == null) {
+          return false;
+      }
+      if (getClass() != obj.getClass()) {
+          return false;
+      }
       Qualifier other = (Qualifier) obj;
       if (qualifier == null) {
-        if (other.qualifier != null)
+        if (other.qualifier != null) {
+            return false;
+        }
+      } else if (!qualifier.equals(other.qualifier)) {
           return false;
-      } else if (!qualifier.equals(other.qualifier))
-        return false;
+      }
       if (version == null) {
         return other.version == null;
-      } else
-        return version.equals(other.version);
+      } else {
+          return version.equals(other.version);
+      }
     }
   }
 

@@ -13,6 +13,7 @@ import com.intellij.ui.components.JBList;
 import com.intellij.ui.speedSearch.FilteringListModel;
 import com.intellij.ui.table.JBTable;
 import com.intellij.util.Function;
+import com.intellij.util.ui.JBUI;
 import com.miguelfonseca.completely.AutocompleteEngine;
 import com.miguelfonseca.completely.text.analyze.tokenize.WordTokenizer;
 import com.miguelfonseca.completely.text.analyze.transform.LowerCaseTransformer;
@@ -44,7 +45,6 @@ import java.util.Set;
 import static com.intellij.openapi.actionSystem.CommonShortcuts.getFind;
 import static com.intellij.openapi.util.text.StringUtil.isEmpty;
 import static com.intellij.openapi.wm.IdeFocusManager.getGlobalInstance;
-import static com.intellij.ui.IdeBorderFactory.createEmptyBorder;
 import static com.intellij.ui.components.JBList.createDefaultListModel;
 import static com.intellij.ui.speedSearch.SpeedSearchUtil.applySpeedSearchHighlighting;
 import static in.oneton.idea.spring.assistant.plugin.initializr.misc.InitializrUtil.newCollectionComboBoxModel;
@@ -82,8 +82,8 @@ public class DependencySelection implements Disposable, DependencySelectionChang
   private DependencyDetail dependencyDetail;
   private PerGroupDependencyTableModel perGroupDependencyTableModel;
   private AutocompleteEngine<DependencyGroupAndDependency> dependencyNameAndDescriptionIndex;
-  private DocumentChangedThrottler searchTextChangesThrottler = new DocumentChangedThrottler();
-  private List<VersionUpdateListener> versionUpdateListeners = new ArrayList<>();
+  private final DocumentChangedThrottler searchTextChangesThrottler = new DocumentChangedThrottler();
+  private final List<VersionUpdateListener> versionUpdateListeners = new ArrayList<>();
 
   /**
    * Dependency that should be selected both in the group & per group selections
@@ -92,7 +92,7 @@ public class DependencySelection implements Disposable, DependencySelectionChang
 
   public void init(ProjectCreationRequest request) {
     // set empty border, because setting null doesn't always take effect
-    Border emptyBorder = createEmptyBorder();
+    Border emptyBorder = JBUI.Borders.empty();
     leftRightSeperator.setBorder(emptyBorder);
     groupChildSeperator.setBorder(emptyBorder);
     perGroupDependenciesAndDetailSeperator.setBorder(emptyBorder);
@@ -126,8 +126,9 @@ public class DependencySelection implements Disposable, DependencySelectionChang
 
     ColoredListCellRenderer<DependencyGroup> categoryRenderer =
         new ColoredListCellRenderer<DependencyGroup>() {
+          @Override
           protected void customizeCellRenderer(@NotNull JList<? extends DependencyGroup> list,
-              DependencyGroup value, int index, boolean selected, boolean hasFocus) {
+                                               DependencyGroup value, int index, boolean selected, boolean hasFocus) {
             append(value.getName());
             applySpeedSearchHighlighting(groups, this, true, selected);
           }

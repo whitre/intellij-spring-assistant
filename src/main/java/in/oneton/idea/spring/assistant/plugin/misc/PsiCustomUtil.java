@@ -22,7 +22,6 @@ import com.intellij.psi.PsiPrimitiveType;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.PsiTypeParameter;
 import com.intellij.psi.PsiWildcardType;
-import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.intellij.psi.javadoc.PsiDocComment;
 import com.intellij.psi.util.CachedValue;
 import com.intellij.psi.util.PropertyUtil;
@@ -34,7 +33,6 @@ import gnu.trove.TObjectHashingStrategy;
 import in.oneton.idea.spring.assistant.plugin.suggestion.SuggestionNodeType;
 import in.oneton.idea.spring.assistant.plugin.suggestion.clazz.GenericClassMemberWrapper;
 import lombok.experimental.UtilityClass;
-import org.gradle.internal.impldep.org.junit.platform.commons.function.Try;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -486,9 +484,10 @@ public class PsiCustomUtil {
                         acceptableMember = null;
                     }
                 }
-                if (acceptableMember != null)
+                if (acceptableMember != null) {
                     memberNameToMemberWrapper
                             .put(sanitise(propertyName), new GenericClassMemberWrapper(acceptableMember));
+                }
             }
         }
         return memberNameToMemberWrapper;
@@ -512,8 +511,9 @@ public class PsiCustomUtil {
                 final PsiMethod setter = findInstancePropertySetter(psiClass, propertyName);
                 if (setter != null) {
                     final PsiType setterArgumentType = getSetterArgumentType(setter);
-                    if (setterArgumentType != null)
+                    if (setterArgumentType != null) {
                         return setterArgumentType;
+                    }
                 }
             }
             return getGetterReturnType(method);
@@ -574,8 +574,9 @@ public class PsiCustomUtil {
     @Nullable
     private static PsiMethod findInstancePropertySetter(@NotNull PsiClass psiClass,
                                                         @Nullable String propertyName) {
-        if (StringUtil.isEmpty(propertyName))
+        if (StringUtil.isEmpty(propertyName)) {
             return null;
+        }
         final String suggestedSetterName = PropertyUtil.suggestSetterName(propertyName);
         final PsiMethod[] setters = psiClass.findMethodsByName(suggestedSetterName, true);
         for (PsiMethod setter : setters) {
