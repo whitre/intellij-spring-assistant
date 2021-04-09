@@ -1,6 +1,6 @@
 package in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.intellij.codeInsight.documentation.DocumentationManager;
 import in.oneton.idea.spring.assistant.plugin.misc.GenericUtil;
 import in.oneton.idea.spring.assistant.plugin.suggestion.Suggestion;
@@ -28,7 +28,7 @@ public class SpringConfigurationMetadataGroup {
 
   private String name;
   @Nullable
-  @SerializedName("type")
+  @JsonProperty("type")
   private String className;
   @Nullable
   private String description;

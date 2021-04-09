@@ -72,15 +72,13 @@ public class ProjectDetails {
         projectName.setText(prevProjectName);
         projectName.addCaretListener(e -> request.setName(projectName.getText()));
 
-        String prevProjectDescription = request
-                .getSetProperty(request::setDescription, request::getDescription,
-                        metadata.getDescriptionHolder().getDefaultValue());
+        String prevProjectDescription = request.getSetProperty(request::setDescription, request::getDescription,
+                metadata.getDescriptionHolder().getDefaultValue());
         projectDescription.setText(prevProjectDescription);
         projectDescription.addCaretListener(e -> request.setDescription(projectDescription.getText()));
 
-        String prevPackageName = request
-                .getSetProperty(request::setPackageName, request::getPackageName,
-                        metadata.getPackageNameHolder().getDefaultValue());
+        String prevPackageName = request.getSetProperty(request::setPackageName, request::getPackageName,
+                metadata.getPackageNameHolder().getDefaultValue());
         packageName.setText(prevPackageName);
         packageName.addCaretListener(e -> request.setPackageName(packageName.getText()));
 
@@ -91,42 +89,34 @@ public class ProjectDetails {
 
         IdAndNameComposite packagingTypeComposite = metadata.getPackagingTypeComposite();
         List<IdAndName> packagingTypes = packagingTypeComposite.getValues();
-        IdAndName defaultPackagingType = request
-                .getSetIdContainer(request::setPackaging, request::getPackaging, packagingTypes,
-                        packagingTypeComposite.getDefaultValue());
-        String defaultPackagingTypeId =
-                defaultPackagingType != null ? defaultPackagingType.getId() : null;
-        CollectionComboBoxModel<IdAndName> packagingTypeComboBoxModel =
-                newCollectionComboBoxModel(packagingTypes, defaultPackagingTypeId);
+        IdAndName defaultPackagingType = request.getSetIdContainer(request::setPackaging, request::getPackaging, packagingTypes,
+                packagingTypeComposite.getDefaultValue());
+        String defaultPackagingTypeId = defaultPackagingType != null ? defaultPackagingType.getId() : null;
+        CollectionComboBoxModel<IdAndName> packagingTypeComboBoxModel = newCollectionComboBoxModel(packagingTypes, defaultPackagingTypeId);
         packagingType.setModel(packagingTypeComboBoxModel);
-        packagingType
-                .addActionListener(e -> request.setPackaging((IdAndName) packagingType.getSelectedItem()));
+        packagingType.addActionListener(e -> request.setPackaging((IdAndName) packagingType.getSelectedItem()));
 
         // TODO: Auto detect project java version if user is adding a module instead of new project
         IdAndNameComposite javaVersionComposite = metadata.getJavaVersionComposite();
         List<IdAndName> javaVersions = javaVersionComposite.getValues();
-        IdAndName defaultJavaVersion = request
-                .getSetIdContainer(request::setJavaVersion, request::getJavaVersion, javaVersions,
-                        javaVersionComposite.getDefaultValue());
+        IdAndName defaultJavaVersion = request.getSetIdContainer(request::setJavaVersion, request::getJavaVersion,
+                javaVersions, javaVersionComposite.getDefaultValue());
         String defaultJavaVersionId = defaultJavaVersion != null ? defaultJavaVersion.getId() : null;
         CollectionComboBoxModel<IdAndName> javaVersionComboBoxModel =
                 newCollectionComboBoxModel(javaVersions, defaultJavaVersionId);
         javaVersion.setModel(javaVersionComboBoxModel);
-        javaVersion
-                .addActionListener(e -> request.setJavaVersion((IdAndName) javaVersion.getSelectedItem()));
+        javaVersion.addActionListener(e -> request.setJavaVersion((IdAndName) javaVersion.getSelectedItem()));
 
         IdAndNameComposite languageComposite = metadata.getLanguageComposite();
         List<IdAndName> languages = languageComposite.getValues();
-        IdAndName defaultLanguage = request
-                .getSetIdContainer(request::setLanguage, request::getLanguage, languages,
-                        languageComposite.getDefaultValue());
+        IdAndName defaultLanguage = request.getSetIdContainer(request::setLanguage, request::getLanguage,
+                languages, languageComposite.getDefaultValue());
         String defaultLanguageId = defaultLanguage != null ? defaultLanguage.getId() : null;
         CollectionComboBoxModel<IdAndName> projectLanguageComboBoxModel =
                 newCollectionComboBoxModel(languages, defaultLanguageId);
 
         projectLanguage.setModel(projectLanguageComboBoxModel);
-        projectLanguage
-                .addActionListener(e -> request.setLanguage((IdAndName) projectLanguage.getSelectedItem()));
+        projectLanguage.addActionListener(e -> request.setLanguage((IdAndName) projectLanguage.getSelectedItem()));
 
         ProjectTypeComposite projectTypeComposite = metadata.getProjectTypeComposite();
         List<ProjectType> projectTypes = projectTypeComposite.getTypes();
@@ -152,8 +142,7 @@ public class ProjectDetails {
         defaultProjectTypeId = defaultProjectType != null ? defaultProjectType.getId() : null;
         CollectionComboBoxModel<ProjectType> projectTypeComboBoxModel = newCollectionComboBoxModel(projectTypes, defaultProjectTypeId);
         projectType.setModel(projectTypeComboBoxModel);
-        projectType
-                .addActionListener(e -> request.setType((ProjectType) projectType.getSelectedItem()));
+        projectType.addActionListener(e -> request.setType((ProjectType) projectType.getSelectedItem()));
     }
 
     public JPanel getRoot() {

@@ -1,5 +1,348 @@
 {
-  "hints": [],
-  "groups": [],
-  "properties": []
+  "groups": [
+    {
+      "name": "jcf",
+      "type": "com.sitech.ijcf.boot.core.db.datasource.MultiDatasourceProperties",
+      "sourceType": "com.sitech.ijcf.boot.core.db.datasource.MultiDatasourceProperties"
+    },
+    {
+      "name": "jcf.aop",
+      "type": "com.sitech.ijcf.boot.config.AopAdviceProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.AopAdviceProperties"
+    },
+    {
+      "name": "jcf.aop.excludeAdvices",
+      "type": "java.util.Map<com.sitech.ijcf.boot.core.aop.EnumAdviceBeanNames,java.lang.Boolean>",
+      "sourceType": "com.sitech.ijcf.boot.config.AopAdviceProperties"
+    },
+    {
+      "name": "jcf.callee",
+      "type": "com.sitech.ijcf.boot.config.ServiceDescProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.ServiceDescProperties"
+    },
+    {
+      "name": "jcf.callee.a",
+      "type": "com.sitech.ijcf.boot.config.ServiceDescProperties$TemplateServiceDescProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.ServiceDescProperties",
+      "sourceMethod": "getA()"
+    },
+    {
+      "name": "jcf.core",
+      "type": "com.sitech.ijcf.boot.config.BaseProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.BaseProperties"
+    },
+    {
+      "name": "jcf.core.bean",
+      "type": "com.sitech.ijcf.boot.config.BeanProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.BeanProperties"
+    },
+    {
+      "name": "jcf.core.databind.fastjson",
+      "type": "com.sitech.ijcf.boot.config.JsonConfigProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.JsonConfigProperties"
+    },
+    {
+      "name": "jcf.errcode",
+      "type": "com.sitech.ijcf.boot.config.RetCodeMsgProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.RetCodeMsgProperties"
+    },
+    {
+      "name": "jcf.hystrix",
+      "type": "com.sitech.ijcf.boot.config.JCFHystrixGroupProperty",
+      "sourceType": "com.sitech.ijcf.boot.config.JCFHystrixGroupProperty"
+    },
+    {
+      "name": "jcf.ijdbc",
+      "type": "com.sitech.ijcf.boot.core.ijdbc.config.IjdbcConfigProperties",
+      "sourceType": "com.sitech.ijcf.boot.core.ijdbc.config.IjdbcConfigProperties"
+    },
+    {
+      "name": "jcf.message.out.wrapper",
+      "type": "com.sitech.ijcf.boot.config.MessageProperty",
+      "sourceType": "com.sitech.ijcf.boot.config.MessageProperty"
+    },
+    {
+      "name": "jcf.mybatis",
+      "type": "com.sitech.ijcf.boot.config.MybatisScanProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.MybatisScanProperties"
+    },
+    {
+      "name": "jcf.route",
+      "type": "com.sitech.ijcf.boot.config.DbRouteProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.DbRouteProperties"
+    },
+    {
+      "name": "jcf.trans",
+      "type": "com.sitech.ijcf.boot.config.TransactionAttributesProperties",
+      "sourceType": "com.sitech.ijcf.boot.config.TransactionAttributesProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jcf.aop.exclude",
+      "type": "java.util.Map<com.sitech.ijcf.boot.core.aop.EnumAdviceBeanNames,java.lang.Boolean>",
+      "description": "被排除的拦截器",
+      "sourceType": "com.sitech.ijcf.boot.config.AopAdviceProperties"
+    },
+    {
+      "name": "jcf.app.deployment.host-zone",
+      "type": "java.lang.String",
+      "description": "基于容器部署时宿主机所在的机房，和容器中应用的机房不要一样"
+    },
+    {
+      "name": "jcf.app.deployment.tenant-id",
+      "type": "java.lang.String",
+      "description": "应用归属租户标识"
+    },
+    {
+      "name": "jcf.app.deployment.zone",
+      "type": "java.lang.String",
+      "description": "应用部署所在的机房标识"
+    },
+    {
+      "name": "jcf.callee.a.architecture-type",
+      "type": "com.sitech.ijcf.boot.core.service.ArchitectureType",
+      "description": "服务类型",
+      "sourceType": "com.sitech.ijcf.boot.config.ServiceDescProperties$TemplateServiceDescProperties"
+    },
+    {
+      "name": "jcf.callee.a.inter-class-or-svc-names",
+      "type": "java.lang.String",
+      "description": "服务接口类名或者服务名称或URL，可以多个，以\",\"分隔",
+      "sourceType": "com.sitech.ijcf.boot.config.ServiceDescProperties$TemplateServiceDescProperties"
+    },
+    {
+      "name": "jcf.callee.a.inter-class-scan-package",
+      "type": "java.lang.String",
+      "description": "远程服务接口类扫描路径，ant表达值风格",
+      "sourceType": "com.sitech.ijcf.boot.config.ServiceDescProperties$TemplateServiceDescProperties"
+    },
+    {
+      "name": "jcf.callee.a.prefix",
+      "type": "java.lang.String",
+      "description": "前缀，SpringCLoud下即为http:\/\/{spring.application.name}",
+      "sourceType": "com.sitech.ijcf.boot.config.ServiceDescProperties$TemplateServiceDescProperties"
+    },
+    {
+      "name": "jcf.callee.a.svc-names-start-with",
+      "type": "java.lang.String",
+      "description": "服务名称以配置名称开始",
+      "sourceType": "com.sitech.ijcf.boot.config.ServiceDescProperties$TemplateServiceDescProperties"
+    },
+    {
+      "name": "jcf.core.bean.bean-scan-packages",
+      "type": "java.lang.String",
+      "description": "指定服务扫描包路径路径.",
+      "sourceType": "com.sitech.ijcf.boot.config.BeanProperties",
+      "defaultValue": [
+        "com.sitech.**"
+      ]
+    },
+    {
+      "name": "jcf.core.databind-json-type",
+      "type": "com.sitech.ijcf.boot.core.mc.support.EnumJsonDataBindType",
+      "sourceType": "com.sitech.ijcf.boot.config.BaseProperties"
+    },
+    {
+      "name": "jcf.core.databind.fastjson.date-format",
+      "type": "java.lang.String",
+      "sourceType": "com.sitech.ijcf.boot.config.JsonConfigProperties"
+    },
+    {
+      "name": "jcf.core.databind.fastjson.serializer-feature",
+      "type": "java.util.Map<com.alibaba.fastjson.serializer.SerializerFeature,java.lang.Boolean>",
+      "sourceType": "com.sitech.ijcf.boot.config.JsonConfigProperties"
+    },
+    {
+      "name": "jcf.core.databind.json.serializer-feature",
+      "type": "java.util.Map<com.alibaba.fastjson.serializer.SerializerFeature,java.lang.Boolean>",
+      "sourceType": "com.sitech.ijcf.boot.config.JsonConfigProperties"
+    },
+    {
+      "name": "jcf.datasource",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "配置多数据，用法jcf.datasource.db_id(自定义).连接池属性(参考spring.datasource的属性).",
+      "sourceType": "com.sitech.ijcf.boot.core.db.datasource.MultiDatasourceProperties"
+    },
+    {
+      "name": "jcf.errcode.enable",
+      "type": "java.lang.Boolean",
+      "description": "启用或关闭错误码转换功能，默认开启true",
+      "sourceType": "com.sitech.ijcf.boot.config.RetCodeMsgProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "jcf.errcode.name",
+      "type": "java.lang.Class<? extends com.sitech.ijcf.boot.core.error.convert.LoadReturnCodeMsgData>",
+      "description": "错误码转换的具体实现",
+      "sourceType": "com.sitech.ijcf.boot.config.RetCodeMsgProperties"
+    },
+    {
+      "name": "jcf.errcode.policy",
+      "type": "com.sitech.ijcf.boot.core.error.convert.impl.support.CachePolicy",
+      "description": "错误码缓存策略，视name配置只针对部分name实现有效",
+      "sourceType": "com.sitech.ijcf.boot.config.RetCodeMsgProperties"
+    },
+    {
+      "name": "jcf.errcode.refreshinterval",
+      "type": "java.lang.Integer",
+      "description": "错误码数据重新加载间隔单位秒，具体休眠时间会再* Math.random()+1800，视name配置只针对部分name实现有效",
+      "sourceType": "com.sitech.ijcf.boot.config.RetCodeMsgProperties",
+      "defaultValue": 1800
+    },
+    {
+      "name": "jcf.esb.url",
+      "type": "java.lang.String",
+      "description": "esb地址, 如http:\/\/ip:port\/rs\/{servicename}\/rest,{servicename}会被替换成服务名称"
+    },
+    {
+      "name": "jcf.httptpl.connecttimeout",
+      "type": "java.lang.Integer",
+      "description": "设置HttpTemplate客户端中Http连接池超时时间(秒)",
+      "defaultValue": 500
+    },
+    {
+      "name": "jcf.httptpl.maxtotalconnections",
+      "type": "java.lang.Integer",
+      "description": "设置HttpTemplate客户端中的Http连接池最大值(毫秒)",
+      "defaultValue": 100
+    },
+    {
+      "name": "jcf.httptpl.preroute",
+      "type": "java.lang.Integer",
+      "description": "设置HttpTemplate客户端中Http每个域名允许最多多少个连接",
+      "defaultValue": 20
+    },
+    {
+      "name": "jcf.httptpl.readtimeout",
+      "type": "java.lang.Integer",
+      "description": "设置HttpTemplate客户端中Http数据传输超时时间(秒)",
+      "defaultValue": 30000
+    },
+    {
+      "name": "jcf.hystrix.group",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "sourceType": "com.sitech.ijcf.boot.config.JCFHystrixGroupProperty"
+    },
+    {
+      "name": "jcf.ijdbc.dbtype",
+      "type": "java.lang.String",
+      "sourceType": "com.sitech.ijcf.boot.core.ijdbc.config.IjdbcConfigProperties"
+    },
+    {
+      "name": "jcf.ijdbc.maxrow",
+      "type": "java.lang.Integer",
+      "sourceType": "com.sitech.ijcf.boot.core.ijdbc.config.IjdbcConfigProperties",
+      "defaultValue": 1000
+    },
+    {
+      "name": "jcf.ijdbc.tuing",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.sitech.ijcf.boot.core.ijdbc.config.IjdbcConfigProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "jcf.jaxb.xml.ns",
+      "type": "java.lang.String",
+      "description": "设置使用jaxb进行XML序列化时命名空间与前缀的关系"
+    },
+    {
+      "name": "jcf.message.out.wrapper.enable",
+      "type": "java.lang.Boolean",
+      "description": "默认是否对出参进行wrapper处理.",
+      "sourceType": "com.sitech.ijcf.boot.config.MessageProperty"
+    },
+    {
+      "name": "jcf.message.out.wrapper.soap-enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.sitech.ijcf.boot.config.MessageProperty"
+    },
+    {
+      "name": "jcf.mybatis.default-scan",
+      "type": "java.lang.String[]",
+      "sourceType": "com.sitech.ijcf.boot.config.MybatisScanProperties"
+    },
+    {
+      "name": "jcf.pwdfile.path",
+      "type": "java.lang.String",
+      "description": "指定密码文件password.properties的存储位置"
+    },
+    {
+      "name": "jcf.random.svcAccessToken",
+      "type": "java.lang.String",
+      "description": "将jcf.svc.access.username和jcf.svc.access.pwd拼接成服务端访问token"
+    },
+    {
+      "name": "jcf.resttpl.connect-timeout",
+      "type": "java.lang.Integer",
+      "description": "默认全局服务连接超时 60000,单位ms",
+      "defaultValue": 60000
+    },
+    {
+      "name": "jcf.resttpl.read-timeout",
+      "type": "java.lang.Integer",
+      "description": "默认全局服务读取超时 60000,单位ms",
+      "defaultValue": 60000
+    },
+    {
+      "name": "jcf.route.default-label",
+      "type": "java.lang.String",
+      "description": "默认连接的数据源对应的DB_ID.",
+      "sourceType": "com.sitech.ijcf.boot.config.DbRouteProperties"
+    },
+    {
+      "name": "jcf.route.error-use-hsf",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.sitech.ijcf.boot.config.DbRouteProperties"
+    },
+    {
+      "name": "jcf.route.name",
+      "type": "java.lang.Class<? extends com.sitech.ijcf.boot.core.db.route.DbRoute>",
+      "description": "指定路由算法类.",
+      "sourceType": "com.sitech.ijcf.boot.config.DbRouteProperties"
+    },
+    {
+      "name": "jcf.route.proxy-lable",
+      "type": "java.lang.String",
+      "description": "指定分布式路由代理连接的数据源对应的DB_ID.",
+      "sourceType": "com.sitech.ijcf.boot.config.DbRouteProperties"
+    },
+    {
+      "name": "jcf.route.svcnode",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "配置服务的路由节点来源于入参中的那个节点,示例:jcf.route.svcnode.服务名=ROOT.ID_NO,11;ROOT.CUST_ID,12;....",
+      "sourceType": "com.sitech.ijcf.boot.config.DbRouteProperties"
+    },
+    {
+      "name": "jcf.rule.need-error-infos",
+      "type": "java.lang.Boolean",
+      "description": "当服务异常时是否需要把规则引擎的所有规则错误信息都返回"
+    },
+    {
+      "name": "jcf.service-echo-enable",
+      "type": "java.lang.Boolean",
+      "description": "模拟服务返回功能总开关"
+    },
+    {
+      "name": "jcf.service.support-controller",
+      "type": "java.lang.Boolean",
+      "description": "是否把@Controller也识别为JCF的服务,默认false"
+    },
+    {
+      "name": "jcf.service.type",
+      "type": "com.sitech.ijcf.boot.core.service.ArchitectureType",
+      "description": "默认跨中心调用的服务类型"
+    },
+    {
+      "name": "jcf.svc.access.pwd",
+      "type": "java.lang.String",
+      "description": "访问应用服务需要的密码"
+    },
+    {
+      "name": "jcf.svc.access.username",
+      "type": "java.lang.String",
+      "description": "访问应用服务需要的用户名"
+    }
+  ],
+  "hints": []
 }

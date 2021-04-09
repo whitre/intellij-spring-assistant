@@ -1,33 +1,34 @@
 package in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 
-import java.lang.reflect.Type;
+import java.io.IOException;
 
 public class SpringConfigurationMetadataValueProviderTypeDeserializer
-    implements JsonDeserializer<SpringConfigurationMetadataValueProviderType> {
-  @Override
-  public SpringConfigurationMetadataValueProviderType deserialize(JsonElement jsonElement,
-      Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-    String providerTypeAsStr = jsonElement.getAsString();
-    switch (providerTypeAsStr) {
-      case "class-reference":
-        return SpringConfigurationMetadataValueProviderType.class_reference;
-      case "handle-as":
-        return SpringConfigurationMetadataValueProviderType.handle_as;
-      case "logger-name":
-        return SpringConfigurationMetadataValueProviderType.logger_name;
-      case "spring-bean-reference":
-        return SpringConfigurationMetadataValueProviderType.spring_bean_reference;
-      case "spring-profile-name":
-        return SpringConfigurationMetadataValueProviderType.spring_profile_name;
-      case "any":
-        return SpringConfigurationMetadataValueProviderType.any;
-      default:
-        return SpringConfigurationMetadataValueProviderType.unknown;
+        extends JsonDeserializer<SpringConfigurationMetadataValueProviderType> {
+
+    @Override
+    public SpringConfigurationMetadataValueProviderType deserialize(final JsonParser jsonParser, final DeserializationContext deserializationContext)
+            throws IOException, JsonProcessingException {
+        String providerTypeAsStr = jsonParser.getValueAsString();
+        switch (providerTypeAsStr) {
+            case "class-reference":
+                return SpringConfigurationMetadataValueProviderType.class_reference;
+            case "handle-as":
+                return SpringConfigurationMetadataValueProviderType.handle_as;
+            case "logger-name":
+                return SpringConfigurationMetadataValueProviderType.logger_name;
+            case "spring-bean-reference":
+                return SpringConfigurationMetadataValueProviderType.spring_bean_reference;
+            case "spring-profile-name":
+                return SpringConfigurationMetadataValueProviderType.spring_profile_name;
+            case "any":
+                return SpringConfigurationMetadataValueProviderType.any;
+            default:
+                return SpringConfigurationMetadataValueProviderType.unknown;
+        }
     }
-  }
 }

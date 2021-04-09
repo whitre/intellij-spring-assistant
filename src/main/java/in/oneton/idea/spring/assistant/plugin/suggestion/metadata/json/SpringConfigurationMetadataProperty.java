@@ -1,7 +1,7 @@
 package in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.intellij.openapi.module.Module;
 import com.intellij.psi.PsiType;
 import in.oneton.idea.spring.assistant.plugin.misc.GenericUtil;
@@ -61,7 +61,7 @@ public class SpringConfigurationMetadataProperty
     private String name;
     @Nullable
     @Setter
-    @SerializedName("type")
+    @JsonProperty("type")
     private String className;
     @Nullable
     @Setter
@@ -89,14 +89,14 @@ public class SpringConfigurationMetadataProperty
      * Represents either the only hint associated (or) key specific hint when the property represents a map
      */
     @Nullable
-    @Expose(deserialize = false)
+    @JsonIgnore
     private SpringConfigurationMetadataHint genericOrKeyHint;
 
     /**
      * If the property of type map, the property can have both keys & values. This hint represents value
      */
     @Nullable
-    @Expose(deserialize = false)
+    @JsonIgnore
     private SpringConfigurationMetadataHint valueHint;
 
     /**
@@ -421,7 +421,6 @@ public class SpringConfigurationMetadataProperty
         if (defaultValue != null && !(defaultValue instanceof Array)
                 && !(defaultValue instanceof Collection)) {
             if (className != null && defaultValue instanceof Double) {
-                // if defaultValue is a number, its being parsed by gson as double & we will see an incorrect fraction when we take toString()
                 switch (className) {
                     case "java.lang.Integer":
                         return Integer.toString(((Double) defaultValue).intValue());

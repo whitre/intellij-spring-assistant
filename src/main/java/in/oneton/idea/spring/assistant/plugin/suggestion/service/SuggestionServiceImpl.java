@@ -1,8 +1,5 @@
 package in.oneton.idea.spring.assistant.plugin.suggestion.service;
 
-import com.fasterxml.jackson.core.json.JsonReadFeature;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
@@ -20,6 +17,7 @@ import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.MetadataContai
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.MetadataNonPropertySuggestionNode;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.MetadataPropertySuggestionNode;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.MetadataSuggestionNode;
+import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.JacksonMapper;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadata;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadataGroup;
 import in.oneton.idea.spring.assistant.plugin.suggestion.metadata.json.SpringConfigurationMetadataHint;
@@ -66,14 +64,10 @@ public class SuggestionServiceImpl implements SuggestionService {
     private final Map<String, Trie<String, MetadataSuggestionNode>> moduleNameToRootSearchIndex;
     private Future<?> currentExecution;
     private volatile boolean indexingInProgress;
-    private final ObjectMapper objectMapper;
 
     SuggestionServiceImpl() {
         moduleNameToSeenContainerPathToContainerInfo = new THashMap<>();
         moduleNameToRootSearchIndex = new THashMap<>();
-        objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
     }
 
     private static String[] toSanitizedPathSegments(String element) {
@@ -400,9 +394,14 @@ public class SuggestionServiceImpl implements SuggestionService {
             final String metadataFilePath = metadataContainerInfo.getFileUrl();
 
             try (final var inputStream = metadataContainerInfo.getMetadataFile().getInputStream()) {
-                final SpringConfigurationMetadata springConfigurationMetadata = objectMapper
-                        .readerFor(SpringConfigurationMetadata.class)
-                        .readValue(inputStream);
+                final SpringConfigurationMetadata springConfigurationMetadata = JacksonMapper.getMapper()
+                        .readerFor(SpringConfigurationMetadata.class).readValue(inputStream);
+
+                if (springConfigurationMetadata != null && springConfigurationMetadata.getHints() != null) {
+                    for (SpringConfigurationMetadataHint hint : springConfigurationMetadata.getHints()) {
+                        hint.doOnJsonDeserialization();
+                    }
+                }
 
                 buildMetadataHierarchy(module, rootSearchIndex, metadataContainerInfo, springConfigurationMetadata);
 
